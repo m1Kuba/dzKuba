@@ -4,6 +4,10 @@ from config import bot
 import random
 
 
+async def game(message: types.Message):
+    dice_random = random.choice(['⚽', '🎰', '🏀', '🎯', '🎳', '🎲'])
+    await bot.send_dice(chat_id=message.from_user.id, emoji=dice_random)
+
 
 async def start_handler(message: types.Message):
     await bot.send_message(chat_id=message.from_user.id,

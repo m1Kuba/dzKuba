@@ -8,4 +8,4 @@ token = config("TOKEN")
 storage = MemoryStorage()
 
 bot = Bot(token=token)
-dp = Dispatcher(bot, storage=storage)
+dp = Dispatcher(bot)
