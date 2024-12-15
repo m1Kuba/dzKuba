@@ -25,8 +25,8 @@ async def echo_handler(message: types.Message):
     else:
         try:
             # Для чисел с плавающей точкой
-            number = float(message.text)
-            await message.answer(number ** 2)
+            number = float(message.text.replace(',', '.'))
+            await message.answer(f"Квадрат числа: {number ** 2}")
         except ValueError:
             # Если это не число, отправляем сообщение как эхо
             await message.answer(message.text)
