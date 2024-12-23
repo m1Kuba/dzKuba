@@ -8,19 +8,17 @@ GAMES = ['⚽', '🎰', '🏀', '🎯', '🎳', '🎲']
 
 async def echo_handler(message: types.Message):
     """Обработчик текстовых сообщений"""
-    if 'game' in message.text.lower():  # Проверяем, есть ли слово 'game' в сообщении
-        random_game = random.choice(GAMES)  # Выбираем случайную игру
-        await bot.send_dice(chat_id=message.chat.id, emoji=random_game)  # Отправляем игру
-    elif message.text.isdigit():  # Проверяем, является ли сообщение целым числом
+    if 'game' in message.text.lower():
+        random_game = random.choice(GAMES)
+        await bot.send_dice(chat_id=message.chat.id, emoji=random_game)
+    elif message.text.isdigit():
         number = int(message.text)
-        await message.answer(number ** 2)  # Возводим в квадрат
+        await message.answer(number ** 2)
     else:
         try:
-            # Проверяем, является ли сообщение числом с плавающей точкой
             number = float(message.text)
-            await message.answer(number ** 2)  # Возводим в квадрат
+            await message.answer(number ** 2)
         except ValueError:
-            # Если сообщение не является числом, повторяем его
             await message.answer(message.text)
 
 
