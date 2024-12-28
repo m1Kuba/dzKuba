@@ -13,7 +13,7 @@ class store_fsm(StatesGroup):
     product_id = State()
     info_product = State()
     photo = State()
-    collection = State()
+    collection_products = State()
     submit = State()
 
 
@@ -89,7 +89,7 @@ async def load_collection(message: types.Message, state: FSMContext):
                                        f'Артикул - {data["product_id"]}\n'
                                        f'Информация о товаре - {data["info_product"]}\n'
                                        f'Цена - {data["price"]}\n'
-                                       f'Коллекция - {data["collection"]}\n')
+                                       f'Коллекция - {data["collection_products"]}\n')
 
 
 
@@ -110,7 +110,7 @@ async def load_submit(message: types.Message, state: FSMContext):
             )
             await main_db.sql_insert_collection_products(
                 product_id=data['product_id'],
-                collection=data['collection']
+                collection_products=data['collection']
             )
             await message.answer('Ваши данные в базе!')
             await state.finish()
@@ -131,5 +131,5 @@ def store_fsm_handlers(dp: Dispatcher):
     dp.register_message_handler(load_product_id, state=store_fsm.product_id)
     dp.register_message_handler(load_info_product, state=store_fsm.info_product)
     dp.register_message_handler(load_photo, state=store_fsm.photo, content_types=['photo'])
-    dp.register_message_handler(load_collection, state=store_fsm.collection)
+    dp.register_message_handler(load_collection, state=store_fsm.collection_products)
     dp.register_message_handler(load_submit, state=store_fsm.submit)

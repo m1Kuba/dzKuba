@@ -21,24 +21,20 @@ async def start_send_products(message: types.Message):
 async def send_all_products(call: types.CallbackQuery):
     products = main_db.fetch_all_products()
 
-    if products:  # Если товары найдены
+    if products: # True
         for product in products:
             caption = (f'Название - {product["name_product"]}\n'
-                       f'Размер - {product["size"]}\n'
-                       f'Категория - {product["category"]}\n'
-                       f'Артикул - {product["product_id"]}\n'
-                       f'Информация о товаре - {product["info_product"]}\n'
-                       f'Цена - {product["price"]}\n'
-                       f'Коллекция - {product["collection"]}\n')  # Добавляем данные из коллекции
+            f'Размер - {product["size"]}\n'
+            f'Категория - {product["category"]}\n'
+            f'Артикул - {product["product_id"]}\n'
+            f'Информация о товаре - {product["info_product"]}\n'
+            f'Цена - {product["price"]}\n')
+            f'Коллекция - {product["collection"]}\n'
 
-            keyboard = types.InlineKeyboardMarkup(resize_keyboard=True)
-            button_delete = types.InlineKeyboardButton('Удалить', callback_data=f'delete_{product["product_id"]}')
-            keyboard.add(button_delete)
 
-            await call.message.answer_photo(photo=product['photo'], caption=caption, reply_markup=keyboard)
-    else:  # Если товаров нет
+            await call.message.answer_photo(photo=product['photo'], caption=caption)
+    else: # False
         await call.message.answer('База пустая! Товаров нет.')
-
 
 
 def register_handlers(dp: Dispatcher):

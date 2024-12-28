@@ -49,7 +49,6 @@ async def delete_all_products_handler(call: types.CallbackQuery):
     product_id = int(call.data.split('_')[1])
 
     main_db.delete_product(product_id)
-    main_db.delete_product_from_collection(product_id)
 
     if call.message.photo:
         new_caption = 'Товар удален! Обновите список.'
